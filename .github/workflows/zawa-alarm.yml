@@ -2,12 +2,9 @@ name: WhatsApp Alarm Bot via Zawa
 
 on:
   schedule:
-    # Jam 6 pagi
-    - cron: '0 23 * * *'     # UTC+0 => WIB+7 = 06:00
-    # Jam 8.15 pagi
-    - cron: '15 1 * * *'     # UTC+0 => WIB+7 = 08:15
-    # Jam 17.00 sore
-    - cron: '10 10 * * *'    # UTC+0 => WIB+7 = 17:10
+    - cron: '0 23 * * *'     # Jam 06:00 WIB
+    - cron: '15 1 * * *'     # Jam 08:15 WIB
+    - cron: '10 10 * * *'    # Jam 17:10 WIB
   workflow_dispatch:
 
 jobs:
@@ -30,23 +27,16 @@ jobs:
         run: |
           echo "ZAWA_ID=${{ secrets.ZAWA_ID }}" >> .env
           echo "ZAWA_SESSION_ID=${{ secrets.ZAWA_SESSION_ID }}" >> .env
-          echo "ZAWA_TO=${{ secrets.WA_NUMBER }}" >> .env
-          echo "WA_NUMBER=${{ secrets.WA_NUMBER }}" >> .env
-          echo "WA_API_URL=${{ secrets.WA_API_URL }}" >> .env
-          echo "WA_API_TOKEN=${{ secrets.WA_API_TOKEN }}" >> .env
+          echo "ZAWA_TO=${{ secrets.ZAWA_TO }}" >> .env
 
-
-      # ZAWA Message Alarm 06:00
       - name: Alarm Pagi - 06.00
-        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 23 * * *'
-        run: node send-zawa.js ${{ secrets.ZAWA_MESSAGE_ALARM }}
+        if: github.event.schedule == '0 23 * * *' || github.event_name == 'workflow_dispatch'
+        run: node send-zawa.js "⏰ Selamat pagi! Waktunya bangun dan semangat hari ini 💪"
 
-      # ZAWA Message Absen Pagi 08:15
       - name: Absen Pagi - 08.15
-        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '15 1 * * *'
-        run: node send-zawa.js ${{ secrets.ZAWA_MESSAGE_ABSEN_PAGI }}
+        if: github.event.schedule == '15 1 * * *' || github.event_name == 'workflow_dispatch'
+        run: node send-zawa.js "📝 Jangan lupa absen pagi ya!"
 
-      # ZAWA Message Absen Sore 17:10
       - name: Absen Sore - 17.00
-        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '10 10 * * *'
-        run: node send-zawa.js ${{ secrets.ZAWA_MESSAGE_ABSEN_SORE }}
+        if: github.event.schedule == '10 10 * * *' || github.event_name == 'workflow_dispatch'
+        run: node send-zawa.js "📌 Waktunya absen sore. Jangan lupa logout juga ya!"
