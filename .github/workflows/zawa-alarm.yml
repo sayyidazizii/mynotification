@@ -1,0 +1,84 @@
+name: WhatsApp Alarm Bot
+
+on:
+  schedule:
+    # Jam 6 pagi
+    - cron: '0 23 * * *'     # UTC+0 => WIB+7 = 06:00
+    # Jam 8.15 pagi
+    - cron: '15 1 * * *'     # 08:15 WIB
+    # Jam 17 sore
+    - cron: '10 10 * * *'    # 17:10 WIB
+  workflow_dispatch:
+name: WhatsApp Alarm via Zawa
+
+on:
+  schedule:
+    - cron: '0 23 * * *'     # 06:00 WIB
+    - cron: '15 1 * * *'     # 08:15 WIB
+    - cron: '10 10 * * *'    # 17:10 WIB
+  workflow_dispatch:
+
+jobs:
+  alarm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install axios
+        run: npm install axios
+
+      - name: Setup env
+        run: |
+          echo "ZAWA_ID=${{ secrets.ZAWA_ID }}" >> .env
+          echo "ZAWA_SESSION_ID=${{ secrets.ZAWA_SESSION_ID }}" >> .env
+
+      - name: Alarm Pagi - 06.00
+        if: github.event.schedule == '0 23 * * *'
+        run: node send-zawa.js ${{ secrets.ZAWA_MESSAGE_ALARM }}
+
+      - name: Absen Pagi - 08.15
+        if: github.event.schedule == '15 1 * * *'
+        run: node send-zawa.js ${{ secrets.ZAWA_MESSAGE_ABSEN_PAGI }}
+
+      - name: Absen Sore - 17.00
+        if: github.event.schedule == '10 10 * * *'
+        run: node send-zawa.js ${{ secrets.ZAWA_MESSAGE_ABSEN_SORE }}
+
+jobs:
+  send-wa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install axios dotenv
+
+      - name: Send Message (06:00)
+        if: github.event.schedule == '0 23 * * *'
+        run: node send-message.js "⏰ Selamat pagi! Ini alarm jam 6."
+
+      - name: Send Message (08:15)
+        if: github.event.schedule == '15 1 * * *'
+        run: node send-message.js "📣 Jangan lupa absen pagi ya!"
+
+      - name: Send Message (17:00)
+        if: github.event.schedule == '10 10 * * *'
+        run: node send-message.js "📣 Jangan lupa absen sore!"
+        # Note: delay 10 menit dari 17:00 untuk jaga-jaga
+
+      - name: Env Setup
+        run: echo "WA_NUMBER=${{ secrets.WA_NUMBER }}" >> .env && \
+             echo "WA_API_URL=${{ secrets.WA_API_URL }}" >> .env && \
+             echo "WA_API_TOKEN=${{ secrets.WA_API_TOKEN }}" >> .env
