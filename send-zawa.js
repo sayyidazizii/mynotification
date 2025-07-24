@@ -26,5 +26,6 @@ axios.post(API_URL, {
   console.log("✅ Message sent to:", TO);
 }).catch(err => {
   console.error("❌ Failed:", err.response?.data || err.message);
+  console.log({ ID, SESSION_ID, TO, TEXT });
   process.exit(1);
 });
