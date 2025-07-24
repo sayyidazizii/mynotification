@@ -1,10 +1,10 @@
-// send-zawa.js
 const axios = require("axios");
+require("dotenv").config(); // ✅ INI PENTING!
 
 const API_URL = "https://api-zawa.azickri.com/message";
 const ID = process.env.ZAWA_ID;
 const SESSION_ID = process.env.ZAWA_SESSION_ID;
-const MESSAGE_ID = process.argv[2]; // messageId dikirim lewat CLI
+const MESSAGE_ID = process.argv[2]; // ID template dari argumen CLI
 
 if (!MESSAGE_ID || !ID || !SESSION_ID) {
   console.error("Missing required variables.");
