@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "ZAWA_ID=${{ secrets.ZAWA_ID }}" >> .env
           echo "ZAWA_SESSION_ID=${{ secrets.ZAWA_SESSION_ID }}" >> .env
-          echo "ZAWA_TO=${{ secrets.ZAWA_TO }}" >> .env
+          echo "ZAWA_TO=6285602678871" >> .env
 
       # Debug (optional, disable if secrets are sensitive)
       - name: Debug .env (non-sensitive only)
