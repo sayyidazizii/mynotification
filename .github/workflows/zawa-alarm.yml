@@ -28,6 +28,8 @@ jobs:
           echo "ZAWA_ID=${{ secrets.ZAWA_ID }}" >> .env
           echo "ZAWA_SESSION_ID=${{ secrets.ZAWA_SESSION_ID }}" >> .env
           echo "ZAWA_TO=${{ secrets.ZAWA_TO }}" >> .env
+      - name: Debug .env
+        run: cat .env
 
       - name: Alarm Pagi - 06.00
         if: github.event.schedule == '0 23 * * *' || github.event_name == 'workflow_dispatch'
