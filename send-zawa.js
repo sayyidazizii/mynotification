@@ -3,8 +3,8 @@ const axios = require("axios");
 require("dotenv").config();
 
 const API_URL = "https://api-zawa.azickri.com/message";
-const ID = 6881a2da9ce087ceba8cd495;
-const SESSION_ID = e3d88fb2-7665-4310-9288-f77352f5bc9b;
+const ID = process.env.ZAWA_ID;
+const SESSION_ID = process.env.ZAWA_SESSION_ID;
 const TO = process.env.ZAWA_TO;
 const TEXT = process.argv[2]; // pesan teks langsung
 
