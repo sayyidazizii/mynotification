@@ -14,7 +14,7 @@ if (!TEXT || !ID || !SESSION_ID || !TO) {
 }
 
 axios.post(API_URL, {
-  to: TO,
+  phone: TO,
   text: TEXT
 }, {
   headers: {
