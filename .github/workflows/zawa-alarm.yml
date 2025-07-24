@@ -23,13 +23,15 @@ jobs:
       - name: Install dependencies
         run: npm install axios dotenv
 
-      - name: Setup .env
+      - name: Setup .env file from secrets
         run: |
           echo "ZAWA_ID=${{ secrets.ZAWA_ID }}" >> .env
           echo "ZAWA_SESSION_ID=${{ secrets.ZAWA_SESSION_ID }}" >> .env
           echo "ZAWA_TO=${{ secrets.ZAWA_TO }}" >> .env
-      - name: Debug .env
-        run: cat .env
+
+      # Debug (optional, disable if secrets are sensitive)
+      - name: Debug .env (non-sensitive only)
+        run: grep "ZAWA_TO" .env || true
 
       - name: Alarm Pagi - 06.00
         if: github.event.schedule == '0 23 * * *' || github.event_name == 'workflow_dispatch'
@@ -39,6 +41,6 @@ jobs:
         if: github.event.schedule == '15 1 * * *' || github.event_name == 'workflow_dispatch'
         run: node send-zawa.js "📝 Jangan lupa absen pagi ya!"
 
-      - name: Absen Sore - 17.00
+      - name: Absen Sore - 17.10
         if: github.event.schedule == '10 10 * * *' || github.event_name == 'workflow_dispatch'
         run: node send-zawa.js "📌 Waktunya absen sore. Jangan lupa logout juga ya!"
