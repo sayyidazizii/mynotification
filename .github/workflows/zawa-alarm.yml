@@ -30,9 +30,11 @@ jobs:
         run: |
           echo "ZAWA_ID=${{ secrets.ZAWA_ID }}" >> .env
           echo "ZAWA_SESSION_ID=${{ secrets.ZAWA_SESSION_ID }}" >> .env
+          echo "ZAWA_TO=${{ secrets.WA_NUMBER }}" >> .env
           echo "WA_NUMBER=${{ secrets.WA_NUMBER }}" >> .env
           echo "WA_API_URL=${{ secrets.WA_API_URL }}" >> .env
           echo "WA_API_TOKEN=${{ secrets.WA_API_TOKEN }}" >> .env
+
 
       # ZAWA Message Alarm 06:00
       - name: Alarm Pagi - 06.00
