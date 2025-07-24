@@ -4,7 +4,7 @@ require("dotenv").config();
 const API_URL = "https://api-zawa.azickri.com/message";
 const ID = process.env.ZAWA_ID;
 const SESSION_ID = process.env.ZAWA_SESSION_ID;
-const TO = process.env.ZAWA_TO || "6285602678871"; // ganti default jika perlu
+const TO = process.env.ZAWA_TO || process.env.WA_NUMBER || "6285602678871";
 const MESSAGE_ID = process.argv[2];
 
 if (!MESSAGE_ID || !ID || !SESSION_ID || !TO) {
