@@ -1,12 +1,12 @@
+// send-zawa.js
 const axios = require("axios");
 require("dotenv").config();
 
 const API_URL = "https://api-zawa.azickri.com/message";
 const ID = process.env.ZAWA_ID;
 const SESSION_ID = process.env.ZAWA_SESSION_ID;
-const TO = process.env.ZAWA_TO || "6285602678871"; // fallback
-
-const TEXT = process.argv[2]; // dari command line
+const TO = process.env.ZAWA_TO;
+const TEXT = process.argv[2]; // pesan teks langsung
 
 if (!TEXT || !ID || !SESSION_ID || !TO) {
   console.error("❌ Missing required variables.");
@@ -15,7 +15,7 @@ if (!TEXT || !ID || !SESSION_ID || !TO) {
 
 axios.post(API_URL, {
   to: TO,
-  text: TEXT // kirim sebagai teks, bukan messageId
+  text: TEXT
 }, {
   headers: {
     'id': ID,
