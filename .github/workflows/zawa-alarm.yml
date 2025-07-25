@@ -2,9 +2,9 @@ name: WhatsApp Alarm Bot via Zawa
 
 on:
   schedule:
-    - cron: '0 23 * * *'     # Jam 06:00 WIB
-    - cron: '15 1 * * *'     # Jam 08:15 WIB
-    - cron: '10 10 * * *'    # Jam 17:10 WIB
+    - cron: '0 21 * * *'     # Jam 04:00 WIB
+    - cron: '0 0 * * *'      # Jam 07:00 WIB
+    - cron: '30 9 * * *'     # Jam 16:30 WIB
   workflow_dispatch:
 
 jobs:
@@ -29,18 +29,17 @@ jobs:
           echo "ZAWA_SESSION_ID=${{ secrets.ZAWA_SESSION_ID }}" >> .env
           echo "ZAWA_TO=6285602678871" >> .env
 
-      # Debug (optional, disable if secrets are sensitive)
       - name: Debug .env (non-sensitive only)
         run: grep "ZAWA_TO" .env || true
 
-      - name: Alarm Pagi - 06.00
-        if: github.event.schedule == '0 23 * * *' || github.event_name == 'workflow_dispatch'
-        run: node send-zawa.js "⏰ Selamat pagi! Waktunya bangun dan semangat hari ini 💪"
+      - name: Alarm Pagi - 04.00
+        if: github.event.schedule == '0 21 * * *' || github.event_name == 'workflow_dispatch'
+        run: node send-zawa.js "⏰ Selamat pagi! Waktunya bangun dan mulai hari dengan produktif 💪"
 
-      - name: Absen Pagi - 08.15
-        if: github.event.schedule == '15 1 * * *' || github.event_name == 'workflow_dispatch'
+      - name: Absen Pagi - 07.00
+        if: github.event.schedule == '0 0 * * *' || github.event_name == 'workflow_dispatch'
         run: node send-zawa.js "📝 Jangan lupa absen pagi ya!"
 
-      - name: Absen Sore - 17.10
-        if: github.event.schedule == '10 10 * * *' || github.event_name == 'workflow_dispatch'
-        run: node send-zawa.js "📌 Waktunya absen sore. Jangan lupa logout juga ya!"
+      - name: Absen Sore - 16.30
+        if: github.event.schedule == '30 9 * * *' || github.event_name == 'workflow_dispatch'
+        run: node send-zawa.js "📌 Waktunya absen sore!"
