@@ -34,12 +34,15 @@ jobs:
 
       - name: Alarm Pagi - 04.00
         if: github.event.schedule == '0 21 * * *' || github.event_name == 'workflow_dispatch'
-        run: node send-zawa.js "⏰ Selamat pagi! Waktunya bangun dan mulai hari dengan produktif 💪"
+        run: |
+          node send-zawa.js "⏰ Selamat pagi! Waktunya bangun dan mulai hari dengan produktif 💪"
 
       - name: Absen Pagi - 07.00
         if: github.event.schedule == '0 0 * * *' || github.event_name == 'workflow_dispatch'
-        run: node send-zawa.js "📝 Jangan lupa absen pagi ya! Klik link berikut: https://demo.zxc.co.id dan https://zxc.co.id"
+        run: |
+          node send-zawa.js "📝 Jangan lupa absen pagi ya! Klik link berikut: https://demo.zxc.co.id dan https://zxc.co.id"
 
       - name: Absen Sore - 16.00
         if: github.event.schedule == '0 9 * * *' || github.event_name == 'workflow_dispatch'
-        run: node send-zawa.js "📌 Waktunya absen sore! Klik link berikut: https://demo.zxc.co.id dan https://zxc.co.id"
+        run: |
+          node send-zawa.js "📌 Waktunya absen sore! Klik link berikut: https://demo.zxc.co.id dan https://zxc.co.id"
