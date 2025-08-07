@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 21 * * *'     # Jam 04:00 WIB
     - cron: '0 0 * * *'      # Jam 07:00 WIB
-    - cron: '30 9 * * *'     # Jam 16:30 WIB
+    - cron: '0 9 * * *'      # Jam 16:00 WIB
   workflow_dispatch:
 
 jobs:
@@ -38,8 +38,8 @@ jobs:
 
       - name: Absen Pagi - 07.00
         if: github.event.schedule == '0 0 * * *' || github.event_name == 'workflow_dispatch'
-        run: node send-zawa.js "📝 Jangan lupa absen pagi ya!"
+        run: node send-zawa.js "📝 Jangan lupa absen pagi ya! Klik link berikut: https://demo.zxc.co.id dan https://zxc.co.id"
 
-      - name: Absen Sore - 16.30
-        if: github.event.schedule == '30 9 * * *' || github.event_name == 'workflow_dispatch'
-        run: node send-zawa.js "📌 Waktunya absen sore!"
+      - name: Absen Sore - 16.00
+        if: github.event.schedule == '0 9 * * *' || github.event_name == 'workflow_dispatch'
+        run: node send-zawa.js "📌 Waktunya absen sore! Klik link berikut: https://demo.zxc.co.id dan https://zxc.co.id"
