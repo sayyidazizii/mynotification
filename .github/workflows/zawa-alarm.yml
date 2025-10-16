@@ -32,17 +32,30 @@ jobs:
       - name: Debug .env (non-sensitive only)
         run: grep "ZAWA_TO" .env || true
 
-      - name: Alarm Pagi - 04.00
+      # ====== PESAN JAM 04:00 WIB ======
+      - name: Alarm Pagi - 04.00 WIB
         if: github.event.schedule == '0 21 * * *' || github.event_name == 'workflow_dispatch'
         run: |
           node send-zawa.js "⏰ Selamat pagi! Waktunya bangun dan mulai hari dengan produktif 💪"
 
-      - name: Absen Pagi - 07.00
+      # ====== PESAN JAM 07:00 WIB ======
+      - name: Absen Pagi - 07.00 WIB
         if: github.event.schedule == '0 0 * * *' || github.event_name == 'workflow_dispatch'
         run: |
           node send-zawa.js "📝 Jangan lupa absen pagi ya! Klik link berikut: https://demo.zxc.co.id dan https://zxc.co.id"
 
-      - name: Absen Sore - 16.00
+      - name: Reminder Progress UT - 07.00 WIB
+        if: github.event.schedule == '0 0 * * *' || github.event_name == 'workflow_dispatch'
+        run: |
+          node send-zawa.js "📚 Jangan lupa update progress tutorial UT di spreadsheet ini: https://docs.google.com/spreadsheets/d/1Hh070AfyobMPrVcNRdJDbTd6bWp3zK94XWDoNHO-NtM/edit?usp=sharing"
+
+      # ====== PESAN JAM 16:00 WIB ======
+      - name: Absen Sore - 16.00 WIB
         if: github.event.schedule == '0 9 * * *' || github.event_name == 'workflow_dispatch'
         run: |
           node send-zawa.js "📌 Waktunya absen sore! Klik link berikut: https://demo.zxc.co.id dan https://zxc.co.id"
+
+      - name: Reminder Progress UT - 16.00 WIB
+        if: github.event.schedule == '0 9 * * *' || github.event_name == 'workflow_dispatch'
+        run: |
+          node send-zawa.js "📊 Update sore untuk progress tutorial UT ya: https://docs.google.com/spreadsheets/d/1Hh070AfyobMPrVcNRdJDbTd6bWp3zK94XWDoNHO-NtM/edit?usp=sharing"
